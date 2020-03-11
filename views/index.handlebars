@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row center-align">
+    <h1>Eat the Burger</h1>
+    <img id="burgerImg" src="/assets/img/secondburger.png" alt="burger illustration">
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s6">
+      <ol>
+        {{#each burgers}}
+        {{#unless devoured}}
+        <li><span class="amber lighten-5">{{name}}</span> <button data-burgerid="{{id}}" class="deleteBtn">Eat it!</button></li>
+        {{/unless}}
+        {{/each}}
+      </ol>
+    </div>
+    <div class="col s6">
+      <ul>
+        {{#each burgers}}
+        {{#if devoured}}
+        <li>{{name}}</li>
+        {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row center-align">
+    <div class="col s12 center-align">
+      <form id="burg-form">
+        <input id="addBurger" class="amber lighten-5" type="text">
+        <button id="submit" class="btn waves-effect waves-light" type="submit">Save Burger!</button>
+      </form>
+      <p>Enter the name of a burger you want to eat and save it!</p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  //delete
+  $("#burg-form").on("submit", () => {
+    console.log("works")
+    event.preventDefault();
+
+    let burger = { name: $("#addBurger").val() };
+    $.ajax({
+      url: "/api/burgers",
+      method: "POST",
+      data: burger
+    }).then((response) => {
+      console.log(response)
+      location.reload();
+    })
+  })
+
+  $(".deleteBtn").on("click", function() {
+    const burgerId = $(this).data("burgerid");
+    $.ajax({
+      url: `/api/burgers/${burgerId}`,
+      method: "PUT"      
+    }).then((response) => {
+      location.reload();
+    })
+  })
+</script>
