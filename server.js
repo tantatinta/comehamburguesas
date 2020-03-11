@@ -28,8 +28,6 @@ connection.connect(function(err) {
   console.log("Connected as id " + connection.threadId);
 });
 
-//route to "/" with GET to get all items from db
-//ADD render "dictionary" contents
 app.get("/", (req, res) => {
   connection.query("SELECT * FROM burgers", (error, data) => {
     if (error) {
@@ -37,7 +35,7 @@ app.get("/", (req, res) => {
       return res.status(500).end();
     }
     // res.render("index");
-    res.render("index", {burgers: data})
+    res.render("index", { burgers: data })
   });
 });
 

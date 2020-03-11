@@ -11,10 +11,19 @@ div, h1 {
   width: 20%;
 }
 
-ol, li {
+.burgerBox {
   padding: 10px;
-  text-align: left;
+}
+
+li {
+  line-height: normal;
+  text-align: center;
   margin-bottom: 5px;
-  
+  list-style-type: none;
+}
+
+.formRow {
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
